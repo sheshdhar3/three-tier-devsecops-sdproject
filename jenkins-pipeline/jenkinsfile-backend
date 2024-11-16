@@ -16,13 +16,9 @@ pipeline {
         }
         stage('Sonarqube Analysis') {
             steps {
-                dir('app-code/backend') {
-                    withSonarQubeEnv('sonar') {
-                        sh ''' 
-                            $SCANNER_HOME/bin/sonar-scanner \
-                            -Dsonar.projectKey=backend \
-                            -Dsonar.sources=. \
-                            
+                steps{
+                withSonarQubeEnv("Sonar"){
+                sh "$SONAR_HOME/bin/sonar-scanner -Dsonar.projectName=PQRbackend -Dsonar.projectKey=PQRBackend"
                     }
                 }
             }
