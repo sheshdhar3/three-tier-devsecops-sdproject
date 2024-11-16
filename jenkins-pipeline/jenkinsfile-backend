@@ -80,6 +80,7 @@ pipeline {
                     sh "docker tag backend-app:shesh ${env.dockerUser}/backend-app:shesh"
                     sh "docker push ${env.dockerUser}/backend-app:shesh"
                     echo "Image pushed on dockerhub repository"
+                    }
                 }
             }
         }
