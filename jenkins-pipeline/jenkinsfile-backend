@@ -23,7 +23,6 @@ pipeline {
                             -Dsonar.projectKey=backend \
                             -Dsonar.sources=. \
                             
-                        '''
                     }
                 }
             }
