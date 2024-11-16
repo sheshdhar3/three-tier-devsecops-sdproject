@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/codewithmuh/three-tier-devsecops-project'
+                git branch: 'main', url: 'https://github.com/sheshdhar3/three-tier-devsecops-sdproject.git'
             }
         }
         stage('Sonarqube Analysis') {
@@ -86,7 +86,7 @@ pipeline {
         
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/codewithmuh/three-tier-devsecops-project.git'
+                git branch: 'main', url: 'https://github.com/sheshdhar3/three-tier-devsecops-sdproject.git'
             }
         }
         stage('Deployment of Backend apps') {
