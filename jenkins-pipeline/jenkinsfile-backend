@@ -1,9 +1,5 @@
 pipeline {
     agent any 
-    tools {
-        jdk 'jdk'
-        nodejs 'nodejs'
-    }
     environment  {
         SONAR_HOME = tool "Sonar"
     }
@@ -93,7 +89,7 @@ pipeline {
         stage('Deployment of Backend apps') {
             steps {
                  sh 'docker run --name backendapp-shesh -p 8001:8000 -d backend-app:shesh'
-                 sh echo 'Deployment done'
+                 sh echo "Deployment done"
                  }
         }
      }
