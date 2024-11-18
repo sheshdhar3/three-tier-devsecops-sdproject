@@ -11,7 +11,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/sheshdhar3/three-tier-devsecops-sdproject.git'
             }
         }
-    }
+    
         stage('Sonarqube Analysis') {
             
                 steps{
@@ -20,7 +20,7 @@ pipeline {
                     }
                 }
             }
-        }
+        
         stage('Quality Check') {
             steps {
                 script {
