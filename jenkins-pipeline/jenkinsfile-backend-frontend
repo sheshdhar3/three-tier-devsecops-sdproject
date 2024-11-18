@@ -39,11 +39,14 @@ pipeline {
         stage('Trivy File Scan') {
             steps {
                 dir('app-code/backend') {
-                    sh 'trivy fs . > trivyfs.txt'
+                    sh 'trivy fs . > trivyfsb1.txt'
+                dir('app-code/frontend') {
+                    sh 'trivy fs . > trivyfsf1.txt'
                 }
+              }
             }
         }
-        stage("Docker Image Build") {  
+        stage("Docker Image Build for backend") {  
             steps {
                 script {
                     dir('app-code/backend') {
@@ -55,9 +58,21 @@ pipeline {
                 }
             }
         }
+        stage("Docker Image Build for frontend") {  
+            steps {
+                script {
+                    dir('app-code/frontend') {
+                            sh 'docker system prune -f'
+                            sh 'docker container prune -f'
+                            sh 'docker build -t frontend-app:shesh  .'
+                     }
+                }
+            }
+        }
         stage("TRIVY Image Scan") {
             steps {
-                sh 'trivy image backend-app:shesh > trivyimage.txt'
+                sh 'trivy image backend-app:shesh > trivyimageb.txt'
+                sh 'trivy image frontend-app:shesh > trivyimagef.txt'
             }
         }
 
@@ -67,8 +82,10 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId:"Dockerhubcreds",passwordVariable:"dockerPassword",usernameVariable:"dockerUser")]){
                     sh "docker login -u ${env.dockerUser} -p ${env.dockerPassword}"
                     sh "docker tag backend-app:shesh ${env.dockerUser}/backend-app:shesh"
+                    sh "docker tag frontend-app:shesh ${env.dockerUser}/frontend-app:shesh"
                     sh "docker push ${env.dockerUser}/backend-app:shesh"
-                    echo "Image pushed on dockerhub repository"
+                    sh "docker push ${env.dockerUser}/frontend-app:shesh"
+                    echo "Both Images pushed on dockerhub repository"
                     }
                 }
             }
@@ -82,6 +99,7 @@ pipeline {
         stage('Deployment of Backend apps') {
             steps {
                  sh 'docker run --name backendapp-shesh -p 8001:8000 -d backend-app:shesh'
+                 sh 'docker run --name frontendapp-shesh -p 3001:3000 -d backend-app:shesh'
                  echo "Deployment done"
                  }
         }
