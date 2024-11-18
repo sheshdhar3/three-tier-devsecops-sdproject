@@ -50,14 +50,14 @@ pipeline {
                             sh 'docker system prune -f'
                             sh 'docker container prune -f'
                             sh 'docker build -t backend-app:shesh .'
-                            sh echo 'Docker image build successfully'
+                            sh echo "Docker image build successfully"
                     }
                 }
             }
         }
         stage("TRIVY Image Scan") {
             steps {
-                sh 'trivy image backend-app:shesh > trivyimage.txt' 
+                sh 'trivy image backend-app:shesh > trivyimage.txt'
             }
         }
 
