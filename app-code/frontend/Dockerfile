@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copy package.json and install dependencies
 COPY /notes-frontend/package.json /app/
+COPY . .
 RUN npm install
 
 # Copy the rest of the application files
