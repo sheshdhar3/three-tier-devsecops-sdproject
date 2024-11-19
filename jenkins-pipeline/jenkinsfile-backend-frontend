@@ -99,7 +99,7 @@ pipeline {
         stage('Deployment of Backend apps') {
             steps {
                  sh 'docker run --name backendapp-shesh -p 8001:8000 -d backend-app:shesh'
-                 sh 'docker run --name frontendapp-shesh -p 3001:3000 -d backend-app:shesh'
+                 sh 'docker run --name frontendapp-shesh22 -p 3001:3000 -d backend-app:shesh'
                  echo "Deployment done"
                  }
         }
