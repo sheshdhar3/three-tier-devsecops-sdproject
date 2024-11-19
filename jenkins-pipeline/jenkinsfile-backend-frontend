@@ -61,7 +61,7 @@ pipeline {
         stage("Docker Image Build for frontend") {  
             steps {
                 script {
-                    dir('app-code/frontend') {
+                    dir('app-code/frontend/notes-frontend') {
                             sh 'docker system prune -f'
                             sh 'docker container prune -f'
                             sh 'docker build -t frontend-app:shesh  .'
